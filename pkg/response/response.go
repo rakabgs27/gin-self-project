@@ -2,16 +2,29 @@ package response
 
 import "github.com/gin-gonic/gin"
 
+// Response adalah struktur standar untuk semua API response
 type Response struct {
-    Success bool        `json:"success"`
-    Message string      `json:"message"`
-    Data    interface{} `json:"data,omitempty"`
+	Success bool        `json:"success"`
+	Message string      `json:"message"`
+	Data    interface{} `json:"data,omitempty"`
 }
 
 func OK(c *gin.Context, message string, data interface{}) {
-    c.JSON(200, Response{Success: true, Message: message, Data: data})
+	c.JSON(200, Response{Success: true, Message: message, Data: data})
 }
 
-func Error(c *gin.Context, code int, message string) {
-    c.JSON(code, Response{Success: false, Message: message})
+func Created(c *gin.Context, message string, data interface{}) {
+	c.JSON(201, Response{Success: true, Message: message, Data: data})
+}
+
+func BadRequest(c *gin.Context, message string) {
+	c.JSON(400, Response{Success: false, Message: message})
+}
+
+func NotFound(c *gin.Context, message string) {
+	c.JSON(404, Response{Success: false, Message: message})
+}
+
+func InternalError(c *gin.Context, message string) {
+	c.JSON(500, Response{Success: false, Message: message})
 }
