@@ -1,1 +1,16 @@
-/.env
+# Air hot reload
+tmp/
+
+# Build output
+bin/
+
+# Environment (RAHASIA - jangan pernah push!)
+.env
+
+# Coverage
+coverage.out
+coverage.html
+
+# OS
+.DS_Store
+Thumbs.db
