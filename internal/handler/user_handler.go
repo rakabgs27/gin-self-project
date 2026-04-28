@@ -6,7 +6,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/rakabgs27/gin-self-project/internal/domain"
 	"github.com/rakabgs27/gin-self-project/internal/service"
+	"github.com/rakabgs27/gin-self-project/internal/repository"
 	"github.com/rakabgs27/gin-self-project/pkg/response"
+	"gorm.io/gorm"
 )
 
 type UserHandler struct {
@@ -15,6 +17,24 @@ type UserHandler struct {
 
 func NewUserHandler(userService service.UserService) *UserHandler {
 	return &UserHandler{userService: userService}
+}
+
+// Tambahkan fungsi ini di file yang sama
+func RegisterUserHandlers(r *gin.RouterGroup, db *gorm.DB) {
+    // Inisialisasi internal modul user
+    userRepo := repository.NewUserRepository(db)
+    userSvc := service.NewUserService(userRepo)
+    h := NewUserHandler(userSvc)
+
+    // Definisi route untuk modul user
+    users := r.Group("/users")
+    {
+        users.GET("", h.GetAllUsers)
+        users.GET("/:id", h.GetUserByID)
+        users.POST("", h.CreateUser)
+        users.PUT("/:id", h.UpdateUser)
+        users.DELETE("/:id", h.DeleteUser)
+    }
 }
 
 // GetAllUsers godoc
