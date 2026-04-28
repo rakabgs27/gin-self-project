@@ -1,4 +1,4 @@
-# 🚀 gin-self-project
+# 🚀 GIN SELF PROJECT
 
 REST API self project menggunakan **Go + Gin + MySQL (GORM)** dengan arsitektur layered yang clean dan siap dikembangkan lebih lanjut.
 
